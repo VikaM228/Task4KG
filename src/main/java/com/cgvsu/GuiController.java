@@ -56,7 +56,7 @@ public class GuiController {
 
 
     private Camera camera = new Camera(
-            new Vector3f(0, 00, 100),
+            new Vector3f(0, 0, 100),
             new Vector3f(0, 0, 0),
             1.0F, 1, 0.01F, 100);
 
@@ -65,7 +65,9 @@ public class GuiController {
     private ToggleGroup camerasPinGroup = new ToggleGroup();
     private ToggleGroup camerasGroup = new ToggleGroup();
 
+    @FXML
     private Button deleteCameraButton;
+    @FXML
     private VBox camerasMenuBox;
     private int firstCameraIndex = 0;
 
@@ -132,7 +134,6 @@ public class GuiController {
 
         }
     }
-
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
@@ -237,7 +238,6 @@ public class GuiController {
         return result.equals("true");
     }
 
-
     @FXML
     private void addToModelsList(Path fileName) {
         String name = fileName.toString();
@@ -328,7 +328,7 @@ public class GuiController {
     public void deleteCamera(ActionEvent actionEvent) {
         int cameraIndex = cameras.indexOf(camera);
         camera.isVisible = false;
-        camerasMenuBox.getChildren().remove(calcCameraInBoxIndex(cameraIndex) + 3);
+        camerasMenuBox.getChildren().remove(calcCameraInBoxIndex(cameraIndex) + 2);
         calcFirstCamera();
         chooseCamera(firstCameraIndex);
         if (camerasMenuBox.getChildren().size() == 4) {
