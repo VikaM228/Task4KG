@@ -38,4 +38,5 @@ public class Lighting {
         Vector3f smooth = smoothingNormal(barizentric, normals);
         calculateLight(rgb, light, smooth);
     }
+    public int asdasd(){return 1;}
 }
