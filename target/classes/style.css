@@ -1,56 +1,82 @@
-/* Общие стили для темной темы */
-.root {
-    -fx-background-color: #2b2b2b;
-    -fx-text-fill: #e0e0e0;
+/* Темная тема для FXML интерфейса */
+
+/* Устанавливаем цвет фона для корневого AnchorPane */
+#anchorPane {
+    -fx-background-color: #2e2e2e;  /* Темно-серый фон */
 }
 
-/* Стили для MenuBar */
+/* Стилизация MenuBar */
 .menu-bar {
-    -fx-background-color: #3c3f41;
-    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #333333; /* Темно-серый фон */
+    -fx-text-fill: white; /* Белый текст для меню */
 }
 
-.menu-bar .menu {
-    -fx-text-fill: #e0e0e0;
-}
-
-.menu-bar .menu:hover {
-    -fx-background-color: #505354;
-}
-
-/* Стили для MenuItem */
 .menu-item {
-    -fx-background-color: transparent;
-    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #444444; /* Чуть более светлый серый фон */
+    -fx-text-fill: white; /* Белый текст для элементов меню */
 }
 
 .menu-item:hover {
-    -fx-background-color: #505354;
+    -fx-background-color: #555555; /* Светлее фон при наведении */
 }
 
-/* Стили для TabPane и Tab */
+/* Стилизация Canvas */
+#canvas {
+    -fx-background-color: #222222; /* Темно-серый фон для холста */
+}
+
+/* Стилизация TabPane и вкладок */
 .tab-pane {
-    -fx-background-color: #3c3f41;
+    -fx-background-color: #1e1e1e;  /* Чуть более темный серый фон для боковой панели (границы выделяют ее) */
+    -fx-padding: 10px; /* Добавляем отступы вокруг TabPane для лучшего размещения */
 }
 
-.tab-pane .tab {
-    -fx-background-color: #3c3f41;
-    -fx-text-fill: #e0e0e0;
+/* Стилизация отдельных вкладок */
+.tab {
+    -fx-background-color: #444444;  /* Темный фон для вкладок */
+    -fx-text-fill: white; /* Белый текст для вкладок */
 }
 
-.tab-pane .tab:selected {
-    -fx-background-color: #505354;
-    -fx-text-fill: #ffffff;
+.tab:hover {
+    -fx-background-color: #555555; /* Светлее фон вкладки при наведении */
 }
 
-/* Стили для Canvas */
-.canvas {
-    -fx-background-color: #2b2b2b;
-    -fx-border-color: #505354;
-    -fx-border-width: 1;
+/* Устанавливаем фон для VBox вкладок Models и Cameras */
+.tab[text="Models"] .vbox,
+.tab[text="Cameras"] .vbox {
+    -fx-background-color: #ffffff; /* Белый фон для VBox вкладок Models и Cameras */
+    -fx-text-fill: #333333; /* Темный текст внутри VBox */
 }
 
-/* Стили для AnchorPane */
-.anchor-pane {
-    -fx-background-color: #2b2b2b;
+/* Кнопки внутри вкладок Models и Cameras */
+.tab[text="Models"] .vbox button,
+.tab[text="Cameras"] .vbox button {
+    -fx-background-color: white; /* Белый фон для кнопок */
+    /* Темный текст для контраста */
+    -fx-border-color: #444444; /* Цвет рамки */
+}
+
+.tab[text="Models"] .vbox button:hover,
+.tab[text="Cameras"] .vbox button:hover {
+    -fx-background-color: #f0f0f0; /* Светлее фон кнопки при наведении */
+}
+
+/* Стилизация других кнопок */
+.button {
+    -fx-background-color: #444444;  /* Темный фон для кнопок */
+    -fx-text-fill: white;  /* Белый текст для кнопок */
+    -fx-border-color: #555555;  /* Цвет рамки кнопки */
+}
+
+.button:hover {
+    -fx-background-color: #555555;  /* Светлее фон кнопки при наведении */
+}
+
+.button:focused {
+    -fx-border-color: #888888;  /* Цвет рамки кнопки при фокусе */
+}
+
+/* Текстовые компоненты */
+.label, .text, .menu-item, .tab, .button {
+    -fx-text-fill: white; /* Белый текст для всех текстовых компонентов */
 }

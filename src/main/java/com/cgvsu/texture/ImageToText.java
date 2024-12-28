@@ -8,24 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-//public class ImageToText {
-//
-//    static public int[][] color;
-//   static {
-//       BufferedImage image = null;
-//       try {
-//           image = ImageIO.read(new File("3DModels/CaracalCube/Abyssian_cat_texture.png"));
-//           color = new int[image.getWidth()][image.getHeight()];
-//
-//           for (int i = 0; i < image.getWidth(); i++) {
-//               for (int j = 0; j < image.getHeight(); j++) {
-//                   color[i][j] = image.getRGB(i, j);
-//               }
-//           }
-//       } catch (IOException e) {
-//           e.printStackTrace();
-//       }
-//    }
+
 
 public class ImageToText {
 

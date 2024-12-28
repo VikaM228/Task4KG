@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.geometry.Insets?>
-        <?import javafx.scene.canvas.Canvas?>
-        <?import javafx.scene.control.Button?>
-        <?import javafx.scene.control.Menu?>
-        <?import javafx.scene.control.MenuBar?>
-        <?import javafx.scene.control.MenuItem?>
-        <?import javafx.scene.control.Tab?>
-        <?import javafx.scene.control.TabPane?>
-        <?import javafx.scene.input.KeyCodeCombination?>
-        <?import javafx.scene.layout.AnchorPane?>
-        <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgvsu.GuiController">
     <MenuBar>
@@ -74,7 +74,6 @@
         </Menu>
     </MenuBar>
 
-
     <Canvas fx:id="canvas" height="870" width="1600" AnchorPane.topAnchor="30.0" />
     <TabPane layoutX="1276.0" prefHeight="900.0" prefWidth="324.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1276.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -90,14 +89,14 @@
                 <content>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="668.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <VBox fx:id="camerasMenuBox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="668.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <children>
                                     <Button mnemonicParsing="false" prefWidth="321.0" onAction="#addCamera" text="Add camera" textFill="#fffafa">
                                         <VBox.margin>
                                             <Insets />
                                         </VBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefWidth="321.0" onAction="#deleteCamera" text="Delete camera" textFill="WHITE" />
+                                    <Button fx:id="deleteCameraButton" mnemonicParsing="false" prefWidth="321.0" onAction="#deleteCamera" text="Delete camera" textFill="WHITE" />
                                 </children>
                             </VBox>
                         </children>

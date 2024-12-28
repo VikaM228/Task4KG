@@ -27,14 +27,14 @@
 
 /* Стилизация TabPane и вкладок */
 .tab-pane {
-    -fx-background-color: #1e1e1e;  /* Чуть более темный серый фон для боковой панели (границы выделяют ее) */
-    -fx-padding: 10px; /* Добавляем отступы вокруг TabPane для лучшего размещения */
+    -fx-background-color: #1e1e1e;  /* Темно-серый фон для боковой панели */
+    -fx-padding: 10px; /* Отступы вокруг TabPane */
 }
 
 /* Стилизация отдельных вкладок */
 .tab {
     -fx-background-color: #444444;  /* Темный фон для вкладок */
-    -fx-text-fill: white; /* Белый текст для вкладок */
+    -fx-fill: white; /* Белый текст для вкладок */
 }
 
 .tab:hover {
@@ -44,27 +44,37 @@
 /* Устанавливаем фон для VBox вкладок Models и Cameras */
 .tab[text="Models"] .vbox,
 .tab[text="Cameras"] .vbox {
-    -fx-background-color: #ffffff; /* Белый фон для VBox вкладок Models и Cameras */
-    -fx-text-fill: #333333; /* Темный текст внутри VBox */
+    -fx-background-color: #444444 !important; /* Темный фон для VBox вкладок Models и Cameras */
 }
 
 /* Кнопки внутри вкладок Models и Cameras */
 .tab[text="Models"] .vbox button,
 .tab[text="Cameras"] .vbox button {
-    -fx-background-color: white; /* Белый фон для кнопок */
-    /* Темный текст для контраста */
-    -fx-border-color: #444444; /* Цвет рамки */
+    -fx-background-color: #444444; /* Темный фон для кнопок */
+    -fx-fill: white; /* Белый текст внутри кнопок */
+    -fx-border-color: #555555; /* Цвет рамки кнопок */
 }
 
 .tab[text="Models"] .vbox button:hover,
 .tab[text="Cameras"] .vbox button:hover {
-    -fx-background-color: #f0f0f0; /* Светлее фон кнопки при наведении */
+    -fx-background-color: #555555; /* Светлее фон кнопки при наведении */
 }
 
-/* Стилизация других кнопок */
+#modelsMenuBox {
+    -fx-background-color: #1e1e1e; /* Темный фон для VBox с меню моделей */
+    -fx-border-color: #1e1e1e; /* Темно-серая рамка */
+}
+
+
+.tab-pane {
+    -fx-border-width: 0; /* Убираем рамку для TabPane */
+    -fx-background-color: #1e1e1e; /* Темный фон для TabPane */
+}
+
+/* Стилизация всех кнопок */
 .button {
     -fx-background-color: #444444;  /* Темный фон для кнопок */
-    -fx-text-fill: white;  /* Белый текст для кнопок */
+    -fx-fill: white;  /* Белый текст для кнопок */
     -fx-border-color: #555555;  /* Цвет рамки кнопки */
 }
 
@@ -78,5 +88,21 @@
 
 /* Текстовые компоненты */
 .label, .text, .menu-item, .tab, .button {
-    -fx-text-fill: white; /* Белый текст для всех текстовых компонентов */
+    -fx-fill: white; /* Белый текст для всех текстовых компонентов */
+}
+
+/* Дополнительные стили для выделения активных элементов */
+.tab:selected {
+    -fx-background-color: #555555; /* Светлее фон для активной вкладки */
+    -fx-text-fill: white; /* Белый текст для активной вкладки */
+}
+
+.menu-item:selected {
+    -fx-background-color: #555555; /* Светлее фон для активного пункта меню */
+    -fx-text-fill: white; /* Белый текст для активного пункта меню */
+}
+
+.button:pressed {
+    -fx-background-color: #333333; /* Темный фон при нажатии */
+    -fx-border-color: #777777; /* Ярче рамка при нажатии */
 }
