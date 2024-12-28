@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
 
@@ -54,6 +56,18 @@ public class GuiController {
 
     private int currentCameraNum = 1;
 
+    private boolean leftFlag = false;
+
+    private boolean rightFlag = false;
+
+    private boolean middleFlag = false;
+
+    private float angle = 0;
+
+    private float angleY = 0;
+
+    private Vector2f last;
+
 
     private Camera camera = new Camera(
             new Vector3f(0, 0, 100),
@@ -74,6 +88,7 @@ public class GuiController {
 
     @FXML
     private void initialize() {
+        // Установка динамических размеров Canvas
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
 
@@ -89,15 +104,62 @@ public class GuiController {
 
             if (models != null) {
                 for (Model model: models){
-                    RenderEngine.render(canvas.getGraphicsContext2D(), camera, model, (int) width, (int) height);
+                    RenderEngine.render(canvas.getGraphicsContext2D(), camera, models, (int) width, (int) height);
                 }
             }
         });
 
         timeline.getKeyFrames().add(frame);
         timeline.play();
-    }
+        addCamera(); // Добавление камеры
 
+
+        // Обработка прокрутки мыши
+        canvas.setOnScroll(scrollEvent -> {
+            float deltaY = (float) scrollEvent.getDeltaY();
+            handleMouseWheel(deltaY / 40 * TRANSLATION); // Масштабирование камеры
+        });
+
+        // Обработка нажатий мыши
+        canvas.setOnMousePressed(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                leftFlag = true; // Установить флаг левой кнопки мыши
+
+                canvas.requestFocus(); // Установить фокус на canvas
+            }
+            if (mouseEvent.getButton() == MouseButton.SECONDARY) rightFlag = true; // Правая кнопка мыши
+            if (mouseEvent.getButton() == MouseButton.MIDDLE) middleFlag = true;  // Средняя кнопка мыши
+        });
+
+        // Сброс флагов при отпускании кнопок мыши
+        canvas.setOnMouseReleased(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) leftFlag = false;
+            if (mouseEvent.getButton() == MouseButton.SECONDARY) rightFlag = false;
+            if (mouseEvent.getButton() == MouseButton.MIDDLE) middleFlag = false;
+            if (!leftFlag && !rightFlag && !middleFlag) last = null;
+        });
+
+        // Перемещение мыши с зажатой кнопкой
+        canvas.setOnMouseDragged(event -> {
+            if (last == null) {
+                last = new Vector2f((float) event.getX(), (float) event.getY()); // Инициализация точки перемещения
+            }
+            float dx = (float) event.getX() - last.x;
+            float dy = (float) event.getY() - last.y;
+
+            if (event.getButton() == MouseButton.PRIMARY) {
+                // Обработка поворота камеры
+                angle += dx / 100 * TRANSLATION;
+                angleY = Math.min((float) Math.PI / 4, Math.max(-(float) Math.PI / 4, angleY + dy / 100));
+                rotateXZ();
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                // Перемещение модели
+                translateModel(selectedModel, -dx / 25, -dy / 20, 0);
+            }
+
+            last = new Vector2f((float) event.getX(), (float) event.getY()); // Обновление последней позиции
+        });
+    }
     @FXML
     private void onOpenModelMenuItemClick() {
         FileChooser fileChooser = new FileChooser();
@@ -164,6 +226,7 @@ public class GuiController {
     public void handleCameraDown(ActionEvent actionEvent) {
         camera.movePosition(new Vector3f(0, -TRANSLATION, 0));
     }
+
 
 
     public void saveModel(ActionEvent actionEvent) {
@@ -305,7 +368,7 @@ public class GuiController {
         }
     }
 
-    public void addCamera(ActionEvent actionEvent) {
+    public void addCamera() {
         cameras.add(new Camera(
                 new Vector3f(0, 0, 10),
                 new Vector3f(0, 0, 0),
@@ -325,7 +388,7 @@ public class GuiController {
         chooseCamera(cameraIndex);
     }
 
-    public void deleteCamera(ActionEvent actionEvent) {
+    public void deleteCamera() {
         int cameraIndex = cameras.indexOf(camera);
         camera.isVisible = false;
         camerasMenuBox.getChildren().remove(calcCameraInBoxIndex(cameraIndex) + 2);
@@ -354,6 +417,27 @@ public class GuiController {
             }
         }
         return result;
+    }
+
+    public void handleMouseWheel(float delta) {
+        double radius = Math.sqrt(
+                camera.getPosition().z * camera.getPosition().z + camera.getPosition().x * camera.getPosition().x
+        );
+        if (radius > 2 * TRANSLATION && delta > 0 || delta < 0) {
+            float dx = Math.signum(camera.getPosition().x) * (Math.abs(camera.getPosition().x) - delta) - camera.getPosition().x;
+            float dz = Math.signum(camera.getPosition().z) * (Math.abs(camera.getPosition().z) - delta) - camera.getPosition().z;
+            camera.movePosition(new Vector3f(dx, 0, dz));
+        }
+    }
+
+    public void rotateXZ() {
+        double radius = Math.sqrt(
+                camera.getPosition().z * camera.getPosition().z + camera.getPosition().x * camera.getPosition().x
+        );
+        double dx = radius * Math.sin(angle) - camera.getPosition().x;
+        double dy = radius * Math.sin(angleY) - camera.getPosition().y;
+        double dz = radius * Math.cos(angle) - camera.getPosition().z;
+        camera.movePosition(new Vector3f((float) dx, (float) dy, (float) dz));
     }
 }
 
